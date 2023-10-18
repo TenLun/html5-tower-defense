@@ -15,15 +15,15 @@ var _TD = {
 		var i, TD = {
 			version: "0.1.17", // 版本命名规范参考：http://semver.org/
 			is_debug: !!is_debug,
-			is_paused: true,
+			is_paused: true, //暂停
 			width: 16, // 横向多少个格子
 			height: 16, // 纵向多少个格子
 			show_monster_life: true, // 是否显示怪物的生命值
 			fps: 0,
-			exp_fps: 24, // 期望的 fps
-			exp_fps_half: 12,
-			exp_fps_quarter: 6,
-			exp_fps_eighth: 4,
+			exp_fps: 60, // 期望的 fps
+			exp_fps_half: 30,
+			exp_fps_quarter: 15,
+			exp_fps_eighth: 7.5,
 			stage_data: {},
 			defaultSettings: function () {
 				return {
@@ -40,10 +40,12 @@ var _TD = {
 			 */
 			init: function (ob_board/*, ob_info*/) {
 				this.obj_board = TD.lang.$e(ob_board);
+
+				//画布的Dom
 				this.canvas = this.obj_board.getElementsByTagName("canvas")[0];
 				//this.obj_info = TD.lang.$e(ob_info);
-				if (!this.canvas.getContext) return; // 不支持 canvas
-				this.ctx = this.canvas.getContext("2d");
+				if (!this.canvas.getContext) return; // 不支持 canvas 则退出
+				this.ctx = this.canvas.getContext("2d"); //canvas内容，添加
 				this.monster_type_count = TD.getDefaultMonsterAttributes(); // 一共有多少种怪物
 				this.iframe = 0; // 当前播放到第几帧了
 				this.last_iframe_time = (new Date()).getTime();
@@ -135,6 +137,7 @@ var _TD = {
 					_TD.cheat = "";
 				}
 
+				//如果暂停则退出
 				if (this.is_paused) return;
 
 				this.iframe++; // 当前总第多少帧
@@ -145,7 +148,7 @@ var _TD = {
 					this.fps = Math.round(500000 / (t - this.last_iframe_time)) / 10;
 					this.last_iframe_time = t;
 
-					// 动态调整 step_time ，保证 fps 恒定为 24 左右
+					// 动态调整 step_time ，保证 fps 恒定为 _exp_fps_ 左右
 					if (this.fps < this._exp_fps_0 && step_time > 1) {
 						step_time--;
 					} else if (this.fps > this._exp_fps_1) {
@@ -156,8 +159,11 @@ var _TD = {
 					this.step_time = step_time;
 				}
 				if (this.iframe % 2400 == 0) TD.gc(); // 每隔一段时间自动回收垃圾
-
+				
+				//重复执行
 				this.stage.step();
+				
+				//渲染
 				this.stage.render();
 
 				var _this = this;

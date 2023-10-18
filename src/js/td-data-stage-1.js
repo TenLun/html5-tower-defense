@@ -4,7 +4,7 @@
  * Author: oldj <oldj.wu@gmail.com>
  * Blog: http://oldj.net/
  *
- * 默认关卡
+ * 默认关卡(包括面板 panel)
  */
 
 // _TD.a.push begin
@@ -87,7 +87,8 @@ _TD.a.push(function (TD) {
 				});
 			}
 		};
-
+	
+	//地图信息
 	TD.getDefaultStageData = function (k) {
 		var data = {
 			stage_main: {
@@ -100,50 +101,52 @@ _TD.a.push(function (TD) {
 			scene_endless: {
 				// scene 1
 				map: {
-					grid_x: 16,
-					grid_y: 16,
+					grid_x: TD.width,
+					grid_y: TD.height,
 					x: TD.padding,
 					y: TD.padding,
-					entrance: [0, 0],
-					exit: [15, 15],
+					entrance: [0, 0],//怪物入口
+					exit: [15, 15],//自己
 					grids_cfg: [
 						{
 							pos: [3, 3],
 							//building: "cannon",
-							passable_flag: 0
+							passable_flag: 0 //不可通过区域
 						},
 						{
 							pos: [7, 15],
 							build_flag: 0
-						},
-						{
-							pos: [4, 12],
-							building: "wall"
-						},
-						{
-							pos: [4, 13],
-							building: "wall"
-							//}, {
-							//pos: [11, 9],
-							//building: "cannon"
-							//}, {
-							//pos: [5, 2],
-							//building: "HMG"
-							//}, {
-							//pos: [14, 9],
-							//building: "LMG"
-							//}, {
-							//pos: [3, 14],
-							//building: "LMG"
+//						},
+//						{
+//							pos: [4, 12],
+//							building: "wall"
+//						},
+//						{
+//							pos: [4, 13],
+//							building: "wall"
+//						}, {
+//							pos: [11, 9],
+//							building: "cannon"
+//						}, {
+//							pos: [5, 2],
+//							building: "HMG"
+//						}, {
+//							pos: [14, 9],
+//							building: "LMG"
+//						}, {
+//							pos: [3, 14],
+//							building: "LMG"
 						}
 					]
 				},
+
+				//面板
 				panel: {
 					x: TD.padding * 2 + TD.grid_size * 16,
 					y: TD.padding,
 					map: {
 						grid_x: 3,
-						grid_y: 3,
+						grid_y: 4,
 						x: 0,
 						y: 110 * _TD.retina,
 						grids_cfg: [
@@ -164,7 +167,15 @@ _TD.a.push(function (TD) {
 								building: "laser_gun"
 							},
 							{
-								pos: [2, 2],
+								pos: [1, 1],
+								building: "missle"
+							},
+							{
+								pos: [2, 1],
+								building: "froze"
+							},
+							{
+								pos: [2, 3],
 								building: "wall"
 							}
 						]

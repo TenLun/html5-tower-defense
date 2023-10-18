@@ -21,6 +21,7 @@ _TD.a.push(function (TD) {
 			this.difficulty = cfg.difficulty || 1.0;
 			var attr = TD.getDefaultMonsterAttributes(this.idx);
 
+			//速度
 			this.speed = Math.floor(
 				(attr.speed + this.difficulty / 2) * (Math.random() * 0.5 + 0.75)
 			);
@@ -76,13 +77,23 @@ _TD.a.push(function (TD) {
 		 * @param damage {Number} 本次攻击的原始伤害值
 		 */
 		beHit: function (building, damage) {
+			//无效
 			if (!this.is_valid) return;
+			
+			
 			var min_damage = Math.ceil(damage * 0.1);
 			damage -= this.shield;
 			if (damage <= min_damage) damage = min_damage;
 
+			//播放打击音乐
+			const music = new Audio('./res/hit.mp3');
+			music.play();
+			
+			//减少生命并加分
 			this.life -= damage;
 			TD.score += Math.floor(Math.sqrt(damage));
+
+			//死亡
 			if (this.life <= 0) {
 				this.beKilled(building);
 			}

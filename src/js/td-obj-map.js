@@ -4,6 +4,8 @@
  * Author: oldj <oldj.wu@gmail.com>
  * Blog: http://oldj.net/
  *
+ * 地图
+ * 
  * Last Update: 2011/1/10 5:22:52
  */
 
@@ -29,7 +31,7 @@ _TD.a.push(function (TD) {
 			this.grids = [];
 			this.entrance = this.exit = null;
 			this.buildings = [];
-			this.monsters = [];
+			this.monsters = [];//地图上的怪物
 			this.bullets = [];
 			this.scene = cfg.scene;
 			this.is_main_map = !!cfg.is_main_map;
@@ -108,6 +110,7 @@ _TD.a.push(function (TD) {
 			return this.grids[p];
 		},
 
+		//对怪物执行any
 		anyMonster: function (f) {
 			return TD.lang.any(this.monsters, f);
 		},

@@ -4,6 +4,8 @@
  * Author: oldj <oldj.wu@gmail.com>
  * Blog: http://oldj.net/
  *
+ * 建筑物及子弹类
+ * 
  * Last Update: 2011/1/10 5:22:52
  */
 
@@ -27,8 +29,9 @@ _TD.a.push(function (TD) {
 			/**
 			 * 子弹类型，可以有以下类型：
 			 *         1：普通子弹
-			 *         2：激光类，发射后马上命中，暂未实现
+			 *         2：激光类，发射后马上命中
 			 *         3：导弹类，击中后会爆炸，带来面攻击，暂未实现
+			 *  	   4：冰冻类，击中后会减缓怪兽速度，暂未实现
 			 */
 			this.bullet_type = cfg.bullet_type || 1;
 
@@ -66,7 +69,7 @@ _TD.a.push(function (TD) {
 		},
 
 		/**
-		 * 出售本建筑能得到多少钱
+		 * 出售本建筑能得到多少钱(一半)
 		 */
 		getSellMoney: function () {
 			return Math.floor(this.money * 0.5) || 1;
@@ -219,6 +222,7 @@ _TD.a.push(function (TD) {
 		 * 向自己的目标开火
 		 */
 		fire: function () {
+			//没有目标
 			if (!this.target || !this.target.is_valid) return;
 
 			if (this.type == "laser_gun") {
@@ -226,7 +230,6 @@ _TD.a.push(function (TD) {
 				this.target.beHit(this, this.damage);
 				return;
 			}
-
 			var muzzle = this.muzzle || [this.cx, this.cy], // 炮口的位置
 				cx = muzzle[0],
 				cy = muzzle[1];
@@ -417,7 +420,7 @@ _TD.a.push(function (TD) {
 	TD.Building = function (id, cfg) {
 		cfg.on_events = ["enter", "out", "click"];
 		var building = new TD.Element(id, cfg);
-		TD.lang.mix(building, building_obj);
+		TD.lang.mix(building, building_obj);//创建对象，实例化
 		building._init(cfg);
 
 		return building;
@@ -439,7 +442,7 @@ _TD.a.push(function (TD) {
 			if (this.r < 1) this.r = 1;
 			if (this.r > 6) this.r = 6;
 
-			this.building = cfg.building || null;
+			this.building = cfg.building || null; //父级建筑物
 			this.map = cfg.map || this.building.map;
 			this.type = cfg.type || 1;
 			this.color = cfg.color || "#000";
@@ -495,9 +498,21 @@ _TD.a.push(function (TD) {
 
 			if (monster) {
 				// 击中的怪物
-				monster.beHit(this.building, this.damage);
-				this.is_valid = false;
 
+				//为导弹
+				if (this.building.type == "missle") {
+					this.map.monsters[parseInt(Math.random()* this.map.monsters.length)].beHit(this.building, this.damage);
+					this.map.monsters[parseInt(Math.random()* this.map.monsters.length)].beHit(this.building, this.damage);
+					this.map.monsters[parseInt(Math.random()* this.map.monsters.length)].beHit(this.building, this.damage);
+					this.map.monsters[parseInt(Math.random()* this.map.monsters.length)].beHit(this.building, this.damage);
+					this.map.monsters[parseInt(Math.random()* this.map.monsters.length)].beHit(this.building, this.damage);
+				} else if (this.building.type == "froze") {
+					monster.speed = 1;
+				} else {
+					monster.beHit(this.building, this.damage);
+				}
+
+				this.is_valid = false;
 				// 子弹小爆炸效果
 				TD.Explode(this.id + "-explode", {
 					cx: this.cx,
@@ -546,8 +561,9 @@ _TD.a.push(function (TD) {
 	 *		 }
 	 * 子弹类型，可以有以下类型：
 	 *         1：普通子弹
-	 *         2：激光类，发射后马上命中
+	 *         2：激光类，发射后马上命中 (fire方法中已实现)
 	 *         3：导弹类，击中后会爆炸，带来面攻击
+	 * 		   4：冰冻类，击中后会减缓怪兽速度，暂未实现
 	 */
 	TD.Bullet = function (id, cfg) {
 		var bullet = new TD.Element(id, cfg);

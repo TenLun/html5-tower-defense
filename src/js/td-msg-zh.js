@@ -23,18 +23,24 @@ _TD.a.push(function (TD) {
 		"panel_life_title": "生命: ",
 		"panel_building_title": "建筑: ",
 		"panel_monster_title": "怪物: ",
+		//建筑名
 		"building_name_wall": "路障",
 		"building_name_cannon": "炮台",
 		"building_name_LMG": "轻机枪",
 		"building_name_HMG": "重机枪",
 		"building_name_laser_gun": "激光炮",
+		"building_name_missle": "导弹",
+		//info
 		"building_info": "${0}: 等级 ${1}，攻击 ${2}，速度 ${3}，射程 ${4}，战绩 ${5}",
 		"building_info_wall": "${0}",
+		//建筑介绍
 		"building_intro_wall": "路障 可以阻止怪物通过 ($${0})",
 		"building_intro_cannon": "炮台 射程、杀伤力较为平衡 ($${0})",
 		"building_intro_LMG": "轻机枪 射程较远，杀伤力一般 ($${0})",
 		"building_intro_HMG": "重机枪 快速射击，威力较大，射程一般 ($${0})",
 		"building_intro_laser_gun": "激光枪 伤害较大，命中率 100% ($${0})",
+		"building_intro_missle": "导弹 命中多个目标 ($${0})",
+
 		"click_to_build": "左键点击建造 ${0} ($${1})",
 		"upgrade": "升级 ${0} 到 ${1} 级，需花费 $${2}。",
 		"sell": "出售 ${0}，可获得 $${1}",

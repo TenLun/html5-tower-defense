@@ -4,6 +4,8 @@
  * Author: oldj <oldj.wu@gmail.com>
  * Blog: http://oldj.net/
  *
+ * 菜单栏按钮与状态提示
+ * 
  * Last Update: 2011/1/10 5:22:52
  */
 
@@ -156,7 +158,7 @@ _TD.a.push(function (TD) {
 				this.x, this.y + 60 * _TD.retina);
 			ctx.fillText(TD._t("panel_monster_title") + this.map.monsters.length,
 				this.x, this.y + 80 * _TD.retina);
-			ctx.fillText(TD._t("wave_info", [this.scene.wave]), this.x, this.y + 210 * _TD.retina);
+			ctx.fillText(TD._t("wave_info", [this.scene.wave]), this.x, this.y + 400 * _TD.retina);
 			ctx.closePath();
 
 			if (this._life_recover_wait) {
