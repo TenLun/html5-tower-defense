@@ -3,7 +3,9 @@
  *
  * Author: oldj <oldj.wu@gmail.com>
  * Blog: http://oldj.net/
- *
+ * 
+ * 数学运算与字符串操作
+ * 
  * Last Update: 2011/1/10 5:22:52
  */
 

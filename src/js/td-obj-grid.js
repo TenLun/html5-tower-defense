@@ -146,6 +146,7 @@ _TD.a.push(function (TD) {
 			this.map.select_hl[show ? "show" : "hide"](this);
 		},
 
+		//渲染
 		render: function () {
 			var ctx = TD.ctx,
 				px = this.x + 0.5,
@@ -158,7 +159,7 @@ _TD.a.push(function (TD) {
 			//}
 
 			if (this.is_hover) {
-				ctx.fillStyle = "rgba(255, 255, 200, 0.2)";
+				ctx.fillStyle = "rgba(255, 255, 0, 0.3)";
 				ctx.beginPath();
 				ctx.fillRect(px, py, this.width, this.height);
 				ctx.closePath();

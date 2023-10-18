@@ -4,6 +4,8 @@
  * Author: oldj <oldj.wu@gmail.com>
  * Blog: http://oldj.net/
  *
+ * 怪物最短路径算法
+ * 
  * Last Update: 2011/1/10 5:22:52
  */
 

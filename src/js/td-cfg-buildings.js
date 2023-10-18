@@ -25,6 +25,13 @@ _TD.a.push(function (TD) {
 	 * @param building_type {String} 建筑类型
 	 */
 	TD.getDefaultBuildingAttributes = function (building_type) {
+		/** 
+		 * damage 伤害
+		 * range 射程
+		 * cost 费用
+		 * speed 子弹填充速度
+		 * bullet_speed 子弹飞行速度
+		 */
 
 		var building_attributes = {
 			// 路障
@@ -90,6 +97,29 @@ _TD.a.push(function (TD) {
 				life: 100,
 				shield: 100,
 				cost: 2000
+			},
+
+			//导弹
+			"missle": {
+				damage: 1,
+				range: 2,
+				max_range: 5,
+				speed: 1,//子弹填充速度
+				bullet_speed: 8, 
+				life: 100,
+				shield: 100,
+				cost: 150
+			},
+
+			"froze": {
+				damage: 0,
+				range: 3,
+				max_range: 5,
+				speed: 0.1,//子弹填充速度
+				bullet_speed: 0.5, 
+				life: 100,
+				shield: 100,
+				cost: 150
 			}
 		};
 
