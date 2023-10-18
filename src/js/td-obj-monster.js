@@ -27,6 +27,9 @@ _TD.a.push(function (TD) {
 			);
 			if (this.speed < 1) this.speed = 1;
 			if (this.speed > cfg.max_speed) this.speed = cfg.max_speed;
+			
+			//默认速度
+			this.custom_speed = this.speed;
 
 			this.life = this.life0 = Math.floor(
 				attr.life * (this.difficulty + 1) * (Math.random() + 0.5) * 0.5
@@ -76,11 +79,18 @@ _TD.a.push(function (TD) {
 		 * @param building {Element} 对应的建筑（武器）
 		 * @param damage {Number} 本次攻击的原始伤害值
 		 */
-		beHit: function (building, damage) {
+		beHit: function (building, damage, bullet_type) {
+			//不传参默认为普通子弹
+			bullet_type = typeof bullet_type !== "undefined" ? bullet_type : 1
 			//无效
 			if (!this.is_valid) return;
 			
-			
+			bullet_type = 4;
+
+			if (bullet_type == 4) {
+				this.speed = 1 ;
+			}
+
 			var min_damage = Math.ceil(damage * 0.1);
 			damage -= this.shield;
 			if (damage <= min_damage) damage = min_damage;
@@ -259,6 +269,11 @@ _TD.a.push(function (TD) {
 					this.beBlocked();
 					return;
 				}
+			}
+
+			//速度慢慢恢复到默认值
+			if (this.speed <= this.custom_speed) { 
+				this.speed += 0.01;
 			}
 
 			if (this.cx == this.next_grid.cx && this.cy == this.next_grid.cy) {

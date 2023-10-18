@@ -115,11 +115,12 @@ _TD.a.push(function (TD) {
 				damage: 0,
 				range: 3,
 				max_range: 5,
-				speed: 0.1,//子弹填充速度
+				speed: 1,//子弹填充速度
 				bullet_speed: 0.5, 
 				life: 100,
 				shield: 100,
-				cost: 150
+				cost: 150,
+				bullet_type: 4 
 			}
 		};
 

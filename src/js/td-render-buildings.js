@@ -254,7 +254,7 @@ _TD.a.push(function (TD) {
 			ctx.lineWidth = _TD.retina;
 			ctx.fillStyle = "#f6c";
 			ctx.beginPath();
-			ctx.rect(building.cx - grid_size_half/4, building.cy - grid_size_half/4, 10 * _TD.retina, 10 * _TD.retina , true);
+			ctx.rect(building.cx - grid_size_half/3.5, building.cy - grid_size_half/3.5 , 10 * _TD.retina, 10 * _TD.retina , true);
 			ctx.closePath();
 			ctx.fill();
 			ctx.stroke();

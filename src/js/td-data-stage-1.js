@@ -4,7 +4,7 @@
  * Author: oldj <oldj.wu@gmail.com>
  * Blog: http://oldj.net/
  *
- * 默认关卡(包括面板 panel)
+ * 舞台初始化及数据
  */
 
 // _TD.a.push begin
