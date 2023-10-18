@@ -26,14 +26,7 @@ _TD.a.push(function (TD) {
 			this.map = cfg.map || null;
 			this.grid = cfg.grid || null;
 
-			/**
-			 * 子弹类型，可以有以下类型：
-			 *         1：普通子弹
-			 *         2：激光类，发射后马上命中
-			 *         3：导弹类，击中后会爆炸，带来面攻击，暂未实现
-			 *  	   4：冰冻类，击中后会减缓怪兽速度，暂未实现
-			 */
-			this.bullet_type = cfg.bullet_type || 1;
+			
 
 			/**
 			 * type 可能的值有：
@@ -45,6 +38,15 @@ _TD.a.push(function (TD) {
 			 *
 			 */
 			this.type = cfg.type;
+			
+			/**
+			 * 子弹类型，可以有以下类型：
+			 *         1：普通子弹
+			 *         2：激光类，发射后马上命中(合并到1了)
+			 *         3：导弹类，击中后会爆炸，带来面攻击，暂未实现
+			 *  	   4：冰冻类，击中后会减缓怪兽速度，暂未实现
+			 */
+			this.bullet_type = TD.getDefaultBuildingAttributes(this.type['bullet_type']) || 1;
 
 			this.speed = cfg.speed;
 			this.bullet_speed = cfg.bullet_speed;
@@ -53,8 +55,10 @@ _TD.a.push(function (TD) {
 			this.wait_blink = this._default_wait_blink = 20;
 			this.is_weapon = (this.type != "wall"); // 墙等不可攻击的建筑此项为 false ，其余武器此项为 true
 
+			//将td-cfg-building.js属性复制到this中，方便编写
 			var o = TD.getDefaultBuildingAttributes(this.type);
 			TD.lang.mix(this, o);
+
 			this.range_px = this.range * TD.grid_size;
 			this.money = this.cost; // 购买、升级本建筑已花费的钱
 
@@ -507,7 +511,7 @@ _TD.a.push(function (TD) {
 					this.map.monsters[parseInt(Math.random()* this.map.monsters.length)].beHit(this.building, this.damage);
 					this.map.monsters[parseInt(Math.random()* this.map.monsters.length)].beHit(this.building, this.damage);
 				} else if (this.building.type == "froze") {
-					monster.speed = 1;
+					monster.beHit(this.building, this.damage, this.bullet_type);
 				} else {
 					monster.beHit(this.building, this.damage);
 				}
