@@ -100,7 +100,7 @@ _TD.a.push(function (TD) {
 			},
 
 			//导弹
-			"missle": {
+			"AT_GUN": {
 				damage: 1,
 				range: 2,
 				max_range: 5,
@@ -108,9 +108,11 @@ _TD.a.push(function (TD) {
 				bullet_speed: 8, 
 				life: 100,
 				shield: 100,
-				cost: 150
+				cost: 150,
+				bullet_type: 3
 			},
 
+			//冰冻
 			"froze": {
 				damage: 0,
 				range: 3,

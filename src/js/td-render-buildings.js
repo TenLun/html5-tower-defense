@@ -227,8 +227,8 @@ _TD.a.push(function (TD) {
 			ctx.stroke();
 		},
 
-		//导弹 ctx = canvas
-		"missle": function (building, ctx, map, gs, grid_size_half) {
+		//加农炮 ctx = canvas
+		"AT_GUN": function (building, ctx, map, gs, grid_size_half) {
 			var target_position = building.getTargetPosition();
 
 			//底部
@@ -258,13 +258,6 @@ _TD.a.push(function (TD) {
 			ctx.closePath();
 			ctx.fill();
 			ctx.stroke();
-
-			//高光
-			ctx.fillStyle = "#ccf";
-			ctx.beginPath();
-			ctx.arc(building.cx + 1, building.cy - 1, 2 * _TD.retina, 0, Math.PI * 2, true);
-			ctx.closePath();
-			ctx.fill();
 
 		},
 		//冰冻

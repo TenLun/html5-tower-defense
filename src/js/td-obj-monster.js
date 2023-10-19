@@ -84,9 +84,8 @@ _TD.a.push(function (TD) {
 			bullet_type = typeof bullet_type !== "undefined" ? bullet_type : 1
 			//无效
 			if (!this.is_valid) return;
-			
-			bullet_type = 4;
 
+			//速度减少
 			if (bullet_type == 4) {
 				this.speed = 1 ;
 			}

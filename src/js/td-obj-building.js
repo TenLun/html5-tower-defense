@@ -41,12 +41,13 @@ _TD.a.push(function (TD) {
 			
 			/**
 			 * 子弹类型，可以有以下类型：
-			 *         1：普通子弹
+			 *         1：普通子弹 
 			 *         2：激光类，发射后马上命中(合并到1了)
 			 *         3：导弹类，击中后会爆炸，带来面攻击，暂未实现
 			 *  	   4：冰冻类，击中后会减缓怪兽速度，暂未实现
 			 */
 			this.bullet_type = TD.getDefaultBuildingAttributes(this.type['bullet_type']) || 1;
+			if (this.bullet_type == 4) this.color = '#00f';
 
 			this.speed = cfg.speed;
 			this.bullet_speed = cfg.bullet_speed;
@@ -194,7 +195,8 @@ _TD.a.push(function (TD) {
 		findTaget: function () {
 			if (!this.is_weapon || this.is_pre_building || !this.grid) return;
 
-			var cx = this.cx, cy = this.cy,
+			var cx = this.cx,
+				cy = this.cy,
 				range2 = Math.pow(this.range_px, 2);
 
 			// 如果当前建筑有目标，并且目标还是有效的，并且目标仍在射程内
@@ -243,6 +245,7 @@ _TD.a.push(function (TD) {
 				damage: this.damage,
 				target: this.target,
 				speed: this.bullet_speed,
+				color: this.color,
 				x: cx,
 				y: cy
 			});
@@ -440,6 +443,7 @@ _TD.a.push(function (TD) {
 			this.speed = cfg.speed;
 			this.damage = cfg.damage;
 			this.target = cfg.target;
+			this.type = cfg.bullet_type;
 			this.cx = cfg.x;
 			this.cy = cfg.y;
 			this.r = cfg.r || Math.max(Math.log(this.damage), 2);
@@ -503,19 +507,24 @@ _TD.a.push(function (TD) {
 			if (monster) {
 				// 击中的怪物
 
-				//为导弹
-				if (this.building.type == "missle") {
-					this.map.monsters[parseInt(Math.random()* this.map.monsters.length)].beHit(this.building, this.damage);
-					this.map.monsters[parseInt(Math.random()* this.map.monsters.length)].beHit(this.building, this.damage);
-					this.map.monsters[parseInt(Math.random()* this.map.monsters.length)].beHit(this.building, this.damage);
-					this.map.monsters[parseInt(Math.random()* this.map.monsters.length)].beHit(this.building, this.damage);
-					this.map.monsters[parseInt(Math.random()* this.map.monsters.length)].beHit(this.building, this.damage);
-				} else if (this.building.type == "froze") {
+				if (this.building.type == "froze") {
 					monster.beHit(this.building, this.damage, this.bullet_type);
 				} else {
 					monster.beHit(this.building, this.damage);
 				}
-
+				if (this.building.type == "AT_GUN") {
+					if (this.type == 4) {
+						new TD.Bullet(null, {
+							building: this.building,
+							damage: this.building.damage/2,
+							target: this.building.target,
+							speed: this.building.bullet_speed,
+							x: cx,
+							y: cy
+						});
+					}
+					
+				}
 				this.is_valid = false;
 				// 子弹小爆炸效果
 				TD.Explode(this.id + "-explode", {
@@ -529,6 +538,8 @@ _TD.a.push(function (TD) {
 					time: 0.2
 				});
 
+				
+
 				return true;
 			}
 			return false;
@@ -541,6 +552,7 @@ _TD.a.push(function (TD) {
 			this.cy += this.vy;
 		},
 
+		//渲染子弹
 		render: function () {
 			var ctx = TD.ctx;
 			ctx.fillStyle = this.color;

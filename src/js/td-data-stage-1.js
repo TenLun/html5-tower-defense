@@ -168,7 +168,7 @@ _TD.a.push(function (TD) {
 							},
 							{
 								pos: [1, 1],
-								building: "missle"
+								building: "AT_GUN"
 							},
 							{
 								pos: [2, 1],
