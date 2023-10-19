@@ -46,7 +46,7 @@ _TD.a.push(function (TD) {
 			 *         3：导弹类，击中后会爆炸，带来面攻击，暂未实现
 			 *  	   4：冰冻类，击中后会减缓怪兽速度，暂未实现
 			 */
-			this.bullet_type = TD.getDefaultBuildingAttributes(this.type['bullet_type']) || 1;
+			this.bullet_type = TD.getDefaultBuildingAttributes(this.type)['bullet_type'] || 1;
 			if (this.bullet_type == 4) this.color = '#00f';
 
 			this.speed = cfg.speed;
@@ -246,6 +246,7 @@ _TD.a.push(function (TD) {
 				target: this.target,
 				speed: this.bullet_speed,
 				color: this.color,
+				bullet_type: this.bullet_type,
 				x: cx,
 				y: cy
 			});
@@ -439,11 +440,9 @@ _TD.a.push(function (TD) {
 	var bullet_obj = {
 		_init: function (cfg) {
 			cfg = cfg || {};
-
 			this.speed = cfg.speed;
 			this.damage = cfg.damage;
 			this.target = cfg.target;
-			this.type = cfg.bullet_type;
 			this.cx = cfg.x;
 			this.cy = cfg.y;
 			this.r = cfg.r || Math.max(Math.log(this.damage), 2);
@@ -452,15 +451,13 @@ _TD.a.push(function (TD) {
 
 			this.building = cfg.building || null; //父级建筑物
 			this.map = cfg.map || this.building.map;
-			this.type = cfg.type || 1;
+			this.type = cfg.bullet_type || 1;
 			this.color = cfg.color || "#000";
 
 			this.map.bullets.push(this);
 			this.addToScene(this.map.scene, 1, 6);
 
-			if (this.type == 1) {
-				this.caculate();
-			}
+			this.caculate();
 		},
 
 		/**
@@ -504,41 +501,35 @@ _TD.a.push(function (TD) {
 					return Math.pow(obj.cx - cx, 2) + Math.pow(obj.cy - cy, 2) <= Math.pow(obj.r + r, 2) * 2;
 				});
 
+			if (this.type == 3) r = 20 * _TD.retina;
 			if (monster) {
 				// 击中的怪物
-
-				if (this.building.type == "froze") {
-					monster.beHit(this.building, this.damage, this.bullet_type);
+				if (this.type == 4) {
+					monster.beHit(this.building, this.damage, this.type);
+				} else if (this.type == 3) {
+					monster.beHit(this.building, this.damage);
+					for (var i = 0; i < 5; i++){
+						var monster = this.map.monsters[Math.floor(Math.random() * this.map.monsters.length)]
+						if ( (monster.cx-cx) ** 2 + (monster.cy-cy) ** 2 <= 4000){
+							monster.beHit(this.building, this.damage/2);
+						}
+					}
 				} else {
 					monster.beHit(this.building, this.damage);
 				}
-				if (this.building.type == "AT_GUN") {
-					if (this.type == 4) {
-						new TD.Bullet(null, {
-							building: this.building,
-							damage: this.building.damage/2,
-							target: this.building.target,
-							speed: this.building.bullet_speed,
-							x: cx,
-							y: cy
-						});
-					}
-					
-				}
+
 				this.is_valid = false;
 				// 子弹小爆炸效果
 				TD.Explode(this.id + "-explode", {
 					cx: this.cx,
 					cy: this.cy,
-					r: this.r,
+					r: r,
 					step_level: this.step_level,
 					render_level: this.render_level,
 					color: this.color,
 					scene: this.map.scene,
 					time: 0.2
 				});
-
-				
 
 				return true;
 			}

@@ -99,12 +99,12 @@ _TD.a.push(function (TD) {
 				cost: 2000
 			},
 
-			//导弹
+			//加农炮s
 			"AT_GUN": {
-				damage: 1,
+				damage: 20,
 				range: 2,
 				max_range: 5,
-				speed: 1,//子弹填充速度
+				speed: 0.5,//子弹填充速度
 				bullet_speed: 8, 
 				life: 100,
 				shield: 100,
@@ -117,7 +117,7 @@ _TD.a.push(function (TD) {
 				damage: 0,
 				range: 3,
 				max_range: 5,
-				speed: 1,//子弹填充速度
+				speed: 3,//子弹填充速度
 				bullet_speed: 0.5, 
 				life: 100,
 				shield: 100,
