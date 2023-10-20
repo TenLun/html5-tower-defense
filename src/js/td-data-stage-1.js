@@ -142,7 +142,7 @@ _TD.a.push(function (TD) {
 
 				//面板
 				panel: {
-					x: TD.padding * 2 + TD.grid_size * 16,
+					x: TD.padding * 2 + TD.grid_size * TD.width,
 					y: TD.padding,
 					map: {
 						grid_x: 3,

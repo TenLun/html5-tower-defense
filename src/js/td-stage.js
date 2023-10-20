@@ -234,7 +234,7 @@ _TD.a.push(function (TD) {
 
 		this._init();
 	};
-
+	
 	TD.Scene.prototype = {
 		_init: function () {
 			this.act.addScene(this);

@@ -71,11 +71,15 @@ _TD.a.push(function (TD) {
 						this.scene.panel.btn_upgrade.hide();
 						this.scene.panel.btn_sell.hide();
 						this.scene.panel.btn_restart.show();
+						this.scene.panel.btn_read.show();
+						this.scene.panel.btn_save.show();
 						//this.desc = TD._t("button_pause_desc_1");
 					} else if (this.scene.state == 2) {
 						this.scene.start();
 						this.text = TD._t("button_pause_text");
 						this.scene.panel.btn_restart.hide();
+						this.scene.panel.btn_read.hide();
+						this.scene.panel.btn_save.hide();
 						if (this.scene.map.selected_building) {
 							this.scene.panel.btn_upgrade.show();
 							this.scene.panel.btn_sell.show();
@@ -126,6 +130,32 @@ _TD.a.push(function (TD) {
 				render_level: this.render_level + 1,
 				onClick: function () {
 					this.scene.map.selected_building.tryToSell(this);
+				}
+			});
+			// 读取存档按钮
+			this.btn_read = new TD.Button("panel-btn-read", {
+				scene: this.scene,
+				x: this.x,
+				y: this.y + 420 * _TD.retina,
+				is_visiable: true,
+				text: 'read',//TD._t("button_sell_text"),
+				step_level: this.step_level,
+				render_level: this.render_level + 1,
+				onClick: function () {
+					this.scene.map.read();
+				}
+			});
+			// 保存存档按钮
+			this.btn_save = new TD.Button("panel-btn-save", {
+				scene: this.scene,
+				x: this.x,
+				y: this.y + 460 * _TD.retina,
+				is_visiable: true,
+				text: 'save',//TD._t("button_sell_text"),
+				step_level: this.step_level,
+				render_level: this.render_level + 1,
+				onClick: function () {
+					this.scene.map.save();
 				}
 			});
 		},

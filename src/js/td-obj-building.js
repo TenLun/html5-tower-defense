@@ -504,21 +504,19 @@ _TD.a.push(function (TD) {
 			if (this.type == 3) r = 20 * _TD.retina;
 			if (monster) {
 				// 击中的怪物
-				if (this.type == 4) {
-					monster.beHit(this.building, this.damage, this.type);
-				} else if (this.type == 3) {
-					monster.beHit(this.building, this.damage);
-					for (var i = 0; i < 5; i++){
-						var monster = this.map.monsters[Math.floor(Math.random() * this.map.monsters.length)]
+				monster.beHit(this.building, this.damage, this.type);
+
+				if (this.type == 3) {
+					for (var i = 0; i < this.map.monsters.length; i++){
+						var monster = this.map.monsters[i]
 						if ( (monster.cx-cx) ** 2 + (monster.cy-cy) ** 2 <= 4000){
 							monster.beHit(this.building, this.damage/2);
 						}
 					}
-				} else {
-					monster.beHit(this.building, this.damage);
 				}
 
 				this.is_valid = false;
+				
 				// 子弹小爆炸效果
 				TD.Explode(this.id + "-explode", {
 					cx: this.cx,

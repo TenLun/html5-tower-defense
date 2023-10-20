@@ -110,7 +110,6 @@ _TD.a.push(function (TD) {
 			return this.grids[p];
 		},
 
-		//对怪物执行any
 		anyMonster: function (f) {
 			return TD.lang.any(this.monsters, f);
 		},
@@ -225,6 +224,29 @@ _TD.a.push(function (TD) {
 		 */
 		addMonsters2: function (arr) {
 			this._wait_add_monsters_arr = arr;
+		},
+
+		/**
+		 * 保存存档
+		 */
+		save: function () {
+			if (!this.is_main_map) {
+				var o = [this.buildings,this.monsters,this.bullets]
+				localStorage.setItem('map_buildings', JSON.stringify( JSON.decycle(o[0]) ) );
+				localStorage.setItem('map_monsters', JSON.stringify( JSON.decycle(o[1]) ) ) ;
+				localStorage.setItem('map_bullets', JSON.stringify(JSON.decycle(o[2])));
+			}
+		},
+
+		/**
+		 * 读取存档
+		 */
+		read: function () {
+			if (!this.is_main_map) {
+				this.buildings = JSON.parse(localStorage.getItem('map_buildings'));
+  				this.monsters = JSON.parse(localStorage.getItem('map_monsters'));
+				this.bullets = JSON.parse(localStorage.getItem('map_bullets'));
+			}
 		},
 
 		/**
