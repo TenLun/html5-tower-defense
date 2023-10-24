@@ -276,7 +276,7 @@ _TD.a.push(function (TD) {
 			this.clearInvalidElements();
 
 			if (this._wait_add_monsters > 0) {
-				this.addMonster(this._wait_add_monsters_objidx, Math.floor( Math.random() * this.monsters.length ));
+				this.addMonster(this._wait_add_monsters_objidx, Math.floor( Math.random() * this.entrance.length ));
 				this._wait_add_monsters--;
 			} else if (this._wait_add_monsters_arr.length > 0) {
 				var a = this._wait_add_monsters_arr.shift();
