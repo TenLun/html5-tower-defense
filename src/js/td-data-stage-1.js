@@ -105,7 +105,7 @@ _TD.a.push(function (TD) {
 					grid_y: TD.height,
 					x: TD.padding,
 					y: TD.padding,
-					entrance: [0, 0],//怪物入口
+					entrance: [[0, 0]],//[3, 0]],//怪物入口
 					exit: [15, 15],//自己
 					grids_cfg: [
 						{

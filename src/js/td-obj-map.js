@@ -29,12 +29,12 @@ _TD.a.push(function (TD) {
 			this.x2 = this.x + this.width;
 			this.y2 = this.y + this.height;
 			this.grids = [];
-			this.entrance = this.exit = null;
+			this.entrance = this.exit = null;//list
 			this.buildings = [];
 			this.monsters = [];//地图上的怪物
 			this.bullets = [];
 			this.scene = cfg.scene;
-			this.is_main_map = !!cfg.is_main_map;
+			this.is_main_map = !!cfg.is_main_map || null;
 			this.select_hl = TD.MapSelectHighLight(this.id + "-hl", {
 				map: this
 			});
@@ -67,9 +67,13 @@ _TD.a.push(function (TD) {
 				this.grids.push(grid);
 			}
 
+			//设置怪物出口和入口
 			if (cfg.entrance && cfg.exit && !TD.lang.arrayEqual(cfg.entrance, cfg.exit)) {
-				this.entrance = this.getGrid(cfg.entrance[0], cfg.entrance[1]);
-				this.entrance.is_entrance = true;
+				this.entrance = [];
+				for (var i in cfg.entrance) {
+					this.entrance.push(this.getGrid(cfg.entrance[i][0], cfg.entrance[i][1]));
+					this.getGrid(cfg.entrance[i][0], cfg.entrance[i][1]).is_entrance = true;
+				}
 				this.exit = this.getGrid(cfg.exit[0], cfg.exit[1]);
 				this.exit.is_exit = true;
 			}
@@ -194,9 +198,16 @@ _TD.a.push(function (TD) {
 		/**
 		 * 在地图的入口处添加一个怪物
 		 * @param monster 可以是数字，也可以是 monster 对象
+		 * @param entrance 可以是数字，也可以是 entrance 对象(哪个入口)
 		 */
-		addMonster: function (monster) {
+		addMonster: function (monster,entrance) {
 			if (!this.entrance) return;
+
+			//为数字做适配
+			if (typeof entrance == "number") {
+				entrance = this.entrance[entrance];
+			}
+
 			if (typeof monster == "number") {
 				monster = new TD.Monster(null, {
 					idx: monster,
@@ -205,7 +216,7 @@ _TD.a.push(function (TD) {
 					render_level: this.render_level + 2
 				});
 			}
-			this.entrance.addMonster(monster);
+			entrance.addMonster(monster)
 		},
 
 		/**
@@ -230,7 +241,7 @@ _TD.a.push(function (TD) {
 		 * 保存存档
 		 */
 		save: function () {
-			if (!this.is_main_map) {
+			if (this.is_main_map) {
 				var o = [this.buildings,this.monsters,this.bullets]
 				localStorage.setItem('map_buildings', JSON.stringify( JSON.decycle(o[0]) ) );
 				localStorage.setItem('map_monsters', JSON.stringify( JSON.decycle(o[1]) ) ) ;
@@ -242,10 +253,12 @@ _TD.a.push(function (TD) {
 		 * 读取存档
 		 */
 		read: function () {
-			if (!this.is_main_map) {
+			if (this.is_main_map) {
+				localStorage.setItem('map_buildings', JSON.stringify( JSON.decycle(this.buildings) ) );
 				this.buildings = JSON.parse(localStorage.getItem('map_buildings'));
   				this.monsters = JSON.parse(localStorage.getItem('map_monsters'));
 				this.bullets = JSON.parse(localStorage.getItem('map_bullets'));
+				console.log(this.buildings);
 			}
 		},
 
@@ -263,7 +276,7 @@ _TD.a.push(function (TD) {
 			this.clearInvalidElements();
 
 			if (this._wait_add_monsters > 0) {
-				this.addMonster(this._wait_add_monsters_objidx);
+				this.addMonster(this._wait_add_monsters_objidx, Math.floor( Math.random() * this.monsters.length ));
 				this._wait_add_monsters--;
 			} else if (this._wait_add_monsters_arr.length > 0) {
 				var a = this._wait_add_monsters_arr.shift();

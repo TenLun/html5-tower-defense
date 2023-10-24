@@ -509,8 +509,9 @@ _TD.a.push(function (TD) {
 				if (this.type == 3) {
 					for (var i = 0; i < this.map.monsters.length; i++){
 						var monster = this.map.monsters[i]
-						if ( (monster.cx-cx) ** 2 + (monster.cy-cy) ** 2 <= 4000){
-							monster.beHit(this.building, this.damage/2);
+						var distance = (monster.cx-cx) ** 2 + (monster.cy-cy) ** 2
+						if ( distance <= 4000 ){
+							monster.beHit(this.building, this.damage / distance * 200 );
 						}
 					}
 				}

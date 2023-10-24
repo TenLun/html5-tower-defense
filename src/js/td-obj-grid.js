@@ -54,7 +54,7 @@ _TD.a.push(function (TD) {
 				_this = this,
 				fw = new TD.FindWay(
 					this.map.grid_x, this.map.grid_y,
-					this.map.entrance.mx, this.map.entrance.my,
+					this.map.entrance[0].mx, this.map.entrance[0].my,
 					this.map.exit.mx, this.map.exit.my,
 					function (x, y) {
 						return !(x == _this.mx && y == _this.my) && _this.map.checkPassable(x, y);

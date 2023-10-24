@@ -30,6 +30,7 @@ _TD.a.push(function (TD) {
 		"building_name_HMG": "重机枪",
 		"building_name_laser_gun": "激光炮",
 		"building_name_AT_GUN": "加农炮",
+		"building_name_froze": "冰冻炮",
 		//info
 		"building_info": "${0}: 等级 ${1}，攻击 ${2}，速度 ${3}，射程 ${4}，战绩 ${5}",
 		"building_info_wall": "${0}",
@@ -39,7 +40,8 @@ _TD.a.push(function (TD) {
 		"building_intro_LMG": "轻机枪 射程较远，杀伤力一般 ($${0})",
 		"building_intro_HMG": "重机枪 快速射击，威力较大，射程一般 ($${0})",
 		"building_intro_laser_gun": "激光枪 伤害较大，命中率 100% ($${0})",
-		"building_intro_AT_GUN": "加农炮 命中多个目标 ($${0})",
+		"building_intro_AT_GUN": "加农炮 命中多个目标，会造成面伤害 ($${0})",
+		"building_intro_froze": "冰冻炮 减缓目标速度，无杀伤力 ($${0})",
 
 		"click_to_build": "左键点击建造 ${0} ($${1})",
 		"upgrade": "升级 ${0} 到 ${1} 级，需花费 $${2}。",

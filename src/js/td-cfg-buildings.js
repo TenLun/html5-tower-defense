@@ -31,6 +31,7 @@ _TD.a.push(function (TD) {
 		 * cost 费用
 		 * speed 子弹填充速度
 		 * bullet_speed 子弹飞行速度
+		 * bullet_type 子弹的四种类型
 		 */
 
 		var building_attributes = {
@@ -99,29 +100,29 @@ _TD.a.push(function (TD) {
 				cost: 2000
 			},
 
-			//加农炮s
+			//加农炮
 			"AT_GUN": {
-				damage: 20,
+				damage: 40,
 				range: 2,
 				max_range: 5,
-				speed: 0.5,//子弹填充速度
+				speed: 0.3,
 				bullet_speed: 8, 
 				life: 100,
 				shield: 100,
-				cost: 150,
+				cost: 1500,
 				bullet_type: 3
 			},
 
 			//冰冻
 			"froze": {
 				damage: 0,
-				range: 3,
+				range: 4.5,
 				max_range: 5,
-				speed: 3,//子弹填充速度
-				bullet_speed: 0.5, 
+				speed: 1,
+				bullet_speed: 4, 
 				life: 100,
 				shield: 100,
-				cost: 150,
+				cost: 350,
 				bullet_type: 4 
 			}
 		};
