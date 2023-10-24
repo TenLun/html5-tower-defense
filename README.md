@@ -10,7 +10,7 @@
 
 ## 运行
 
-进入 `src` 或 `build` 目录，用浏览器（如 Chrome、IE9 ）打开 td.html 即可运行本游戏。
+进入 `src` 或 `build` 目录，用浏览器（如 Chrome、IE9 ）打开 [td.html](https://tenlun.github.io/html5-tower-defense/src/td.html) 即可运行本游戏。
 
 或者查看[线上Demo](http://oldj.net/static/html5-tower-defense/td.html)。
 
@@ -61,3 +61,4 @@
 ## 开发计划
  - 添加关卡编辑器。
  - 添加保存进度的功能。
+ - 添加boss怪物
